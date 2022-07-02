@@ -1,15 +1,14 @@
 import { expect, test } from "vitest";
-
-import { createStackEvents } from "./stack-events";
+import { createSubscriptionStack } from "./subscription-stack";
 
 test("Check add", () => {
   const queue = new Set<number>();
-  const stackEvents = createStackEvents();
+  const stack = createSubscriptionStack();
 
   /**
    * Add 1
    */
-  stackEvents(() => {
+  stack(() => {
     queue.add(1);
     return () => queue.delete(1);
   });
@@ -21,7 +20,7 @@ test("Check add", () => {
    * Add 2
    * Add 1
    */
-  stackEvents(() => {
+  stack(() => {
     queue.add(2);
     return () => queue.delete(2);
   });
@@ -35,7 +34,7 @@ test("Check add", () => {
    * Add 2
    * Add 1
    */
-  stackEvents(() => {
+  stack(() => {
     queue.add(3);
     return () => queue.delete(3);
   });
@@ -45,30 +44,30 @@ test("Check add", () => {
 
 test("Check scope", () => {
   const firstQueue = new Set<number>();
-  const firstStackEvents = createStackEvents();
+  const firstStack = createSubscriptionStack();
 
   const secondQueue = new Set<number>();
-  const secondStackEvents = createStackEvents();
+  const secondStack = createSubscriptionStack();
 
-  firstStackEvents(() => {
+  firstStack(() => {
     firstQueue.add(1);
     return () => firstQueue.delete(1);
   });
   expect([...firstQueue]).toEqual([1]);
 
-  firstStackEvents(() => {
+  firstStack(() => {
     firstQueue.add(2);
     return () => firstQueue.delete(2);
   });
   expect([...firstQueue]).toEqual([2, 1]);
 
-  secondStackEvents(() => {
+  secondStack(() => {
     secondQueue.add(3);
     return () => secondQueue.delete(3);
   });
   expect([...secondQueue]).toEqual([3]);
 
-  secondStackEvents(() => {
+  secondStack(() => {
     secondQueue.add(4);
     return () => secondQueue.delete(4);
   });
@@ -79,12 +78,12 @@ test("Check scope", () => {
 
 test("Check unsubscribe", () => {
   const queue = new Set<number>();
-  const stackEvents = createStackEvents();
+  const stack = createSubscriptionStack();
 
   /**
    * Add 1
    */
-  stackEvents(() => {
+  stack(() => {
     queue.add(1);
     return () => queue.delete(1);
   });
@@ -96,7 +95,7 @@ test("Check unsubscribe", () => {
    * Add 2
    * Add 1
    */
-  const unsubscribe = stackEvents(() => {
+  const unsubscribe = stack(() => {
     queue.add(2);
     return () => queue.delete(2);
   });
@@ -113,7 +112,7 @@ test("Check unsubscribe", () => {
    * Add 3
    * Add 1
    */
-  stackEvents(() => {
+  stack(() => {
     queue.add(3);
     return () => queue.delete(3);
   });

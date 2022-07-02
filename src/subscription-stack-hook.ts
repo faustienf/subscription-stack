@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useLayoutEffect, useRef } from "react";
-import { Subscribe, createStackEvents } from "./stack-events";
+import { Subscribe, createSubscriptionStack } from "./subscription-stack";
 
 type AnyFunction = (...args: any[]) => any;
 
@@ -23,15 +23,15 @@ export const useEvent = <T extends AnyFunction>(callback?: T) => {
 
 /**
  * @example
- * const useStackEvents = createStackEventsHook();
+ * const useSubscriptionStack = createSubscriptionStackHook();
  */
-export const createStackEventsHook = () => {
-  const stackEvents = createStackEvents();
+export const createSubscriptionStackHook = () => {
+  const stack = createSubscriptionStack();
 
   return (subscribe: Subscribe) => {
     const event = useEvent(subscribe);
     useEffect(() => {
-      return stackEvents(event);
+      return stack(event);
     }, [event]);
   };
 };

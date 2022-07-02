@@ -1,8 +1,19 @@
 export type Unsubscribe = () => void;
 export type Subscribe = () => Unsubscribe;
-export type StackEvents = (subscribe: Subscribe) => Unsubscribe;
+export type SubscriptionStack = (subscribe: Subscribe) => Unsubscribe;
 
-export const createStackEvents = (): StackEvents => {
+/**
+ * Create scoped LIFO-stack
+ *
+ * @example
+ * const stack = createSubscriptionStack();
+ * stack(() => {
+ *  const handler = () => doSomething();
+ *  window.addEventListener('click', handler);
+ *  return () => window.removeEventListener('click', handler);
+ * });
+ */
+export const createSubscriptionStack = (): SubscriptionStack => {
   let stack = new Map<Subscribe, Unsubscribe>();
 
   return (newSubscribe: Subscribe): Unsubscribe => {

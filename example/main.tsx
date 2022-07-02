@@ -1,24 +1,24 @@
 import { useState, StrictMode } from "react";
-import logo from "./logo.svg";
 import ReactDOM from "react-dom/client";
+import logo from "./logo.svg";
 import "./index.css";
 
-import { createStackEventsHook } from "./stack-events-hook";
+import { createSubscriptionStackHook } from "../src/subscription-stack-hook";
 
-const useStackEvents = createStackEventsHook();
+const useStack = createSubscriptionStackHook();
 
 const App = () => {
   const [first, setFirst] = useState("1️⃣");
   const [second, setSecond] = useState("2️⃣");
   const [third, setThird] = useState("3️⃣");
 
-  useStackEvents(() => {
+  useStack(() => {
     const handler = () => setFirst("✅");
     window.addEventListener("click", handler);
     return () => window.removeEventListener("click", handler);
   });
 
-  useStackEvents(() => {
+  useStack(() => {
     const handler = (e: MouseEvent) => {
       e.stopImmediatePropagation();
       setSecond("✅");
@@ -27,7 +27,7 @@ const App = () => {
     return () => window.removeEventListener("click", handler);
   });
 
-  useStackEvents(() => {
+  useStack(() => {
     const handler = (e: MouseEvent) => {
       e.stopImmediatePropagation();
       setThird("✅");
