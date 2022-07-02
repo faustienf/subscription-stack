@@ -13,7 +13,7 @@ const App = () => {
   const [third, setThird] = useState("3️⃣");
 
   useStackEvents(() => {
-    const handler = () => setFirst("");
+    const handler = () => setFirst("✅");
     window.addEventListener("click", handler);
     return () => window.removeEventListener("click", handler);
   });
@@ -21,7 +21,7 @@ const App = () => {
   useStackEvents(() => {
     const handler = (e: MouseEvent) => {
       e.stopImmediatePropagation();
-      setSecond("");
+      setSecond("✅");
     };
     window.addEventListener("click", handler, { once: true });
     return () => window.removeEventListener("click", handler);
@@ -30,7 +30,7 @@ const App = () => {
   useStackEvents(() => {
     const handler = (e: MouseEvent) => {
       e.stopImmediatePropagation();
-      setThird("");
+      setThird("✅");
     };
     window.addEventListener("click", handler, { once: true });
     return () => window.removeEventListener("click", handler);
@@ -40,7 +40,9 @@ const App = () => {
     <div>
       <img src={logo} className="logo" alt="logo" />
       <p>Click on screen</p>
-      <h2>{JSON.stringify([first, second, third].filter(Boolean))}</h2>
+      <h2>
+        <code>{JSON.stringify([first, second, third])}</code>
+      </h2>
     </div>
   );
 };
