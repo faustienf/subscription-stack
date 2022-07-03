@@ -2,8 +2,10 @@
   "name": "subscription-stack",
   "private": true,
   "version": "0.0.0",
+  "main": "src/index.ts",
+  "module": "src/index.ts",
   "scripts": {
-    "start": "vite",
+    "start": "vite example",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest"
