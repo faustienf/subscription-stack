@@ -1,9 +1,15 @@
 # subscription-stack
 [![npm-version](https://img.shields.io/npm/v/subscription-stack.svg)](https://npmjs.org/package/subscription-stack)
 
-📚 Register a subscription in LIFO stack
+📬 Register a subscription in LIFO stack
 
-### Usage
+## Installation
+
+```bash
+npm i subscription-stack
+```
+
+## Usage
 ```js
 const stack = createSubscriptionStack();
 
@@ -24,7 +30,7 @@ stack(() => {
 // 1
 ```
 
-### React Hook
+## ⚛️ React Hook
 
 ```js
 const useStack = createSubscriptionStackHook();
@@ -46,7 +52,7 @@ useStack(() => {
 // 1
 ```
 
-### How does it work
+## How does it work
 
 ```js
 const queue = new Set(); // []
