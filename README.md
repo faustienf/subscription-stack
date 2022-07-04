@@ -1,4 +1,6 @@
 # subscription-stack
+[![npm-version](https://img.shields.io/npm/v/subscription-stack.svg)](https://npmjs.org/package/subscription-stack)
+
 📚 Register a subscription in LIFO stack
 
 ### Usage
