@@ -17,23 +17,33 @@ npm i subscription-stack
 ## Usage
 
 ```js
+// 1️. Create scoped stack
+const stack = createSubscriptionStack();
+// 2️. Pass callback
+stack(() => {
+  // 3️. Return cleanup function
+  return () => {};
+});
+```
+#### Example
+```js
 const stack = createSubscriptionStack();
 
 stack(() => {
-  const handle = () => console.log("1");
+  const handle = () => console.log("1️⃣");
   window.addEventListener("click", handle);
   return () => window.removeEventListener("click", handle);
 });
 
 stack(() => {
-  const handle = () => console.log("2");
+  const handle = () => console.log("2️⃣");
   window.addEventListener("click", handle);
   return () => window.removeEventListener("click", handle);
 });
 
 // Console:
-// 2
-// 1
+// 2️⃣
+// 1️⃣
 ```
 
 ## ⚛️ React Hook
@@ -42,20 +52,20 @@ stack(() => {
 const useStack = createSubscriptionStackHook();
 
 useStack(() => {
-  const handle = () => console.log("1");
+  const handle = () => console.log("1️⃣");
   window.addEventListener("click", handle);
   return () => window.removeEventListener("click", handle);
 });
 
 useStack(() => {
-  const handle = () => console.log("2");
+  const handle = () => console.log("2️⃣");
   window.addEventListener("click", handle);
   return () => window.removeEventListener("click", handle);
 });
 
 // Console:
-// 2
-// 1
+// 2️⃣
+// 1️⃣
 ```
 
 ## How does it work
@@ -69,7 +79,7 @@ stack(() => {
   return () => queue.delete(1);
 });
 
-// Remove 1 -> []
+// Delete 1 -> []
 // Add 2 -> [2]
 // Add 1 -> [2, 1]
 const unsubscribe = stack(() => {
@@ -77,8 +87,8 @@ const unsubscribe = stack(() => {
   return () => queue.delete(2);
 });
 
-// Remove 2 -> [1]
-// Remove 1 -> []
+// Delete 2 -> [1]
+// Delete 1 -> []
 // Add 3 -> [3]
 // Add 2 -> [3, 2]
 // Add 1 -> [3, 2, 1]
@@ -87,6 +97,6 @@ stack(() => {
   return () => queue.delete(3);
 });
 
-// Remove 2 -> [3, 1]
+// Delete 2 -> [3, 1]
 unsubscribe();
 ```

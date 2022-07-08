@@ -16,7 +16,7 @@ test("Check add", () => {
   expect([...queue]).toEqual([1]);
 
   /**
-   * Remove 1
+   * Delete 1
    * Add 2
    * Add 1
    */
@@ -28,8 +28,8 @@ test("Check add", () => {
   expect([...queue]).toEqual([2, 1]);
 
   /**
-   * Remove 2
-   * Remove 1
+   * Delete 2
+   * Delete 1
    * Add 3
    * Add 2
    * Add 1
@@ -91,7 +91,7 @@ test("Check unsubscribe", () => {
   expect([...queue]).toEqual([1]);
 
   /**
-   * Remove 1
+   * Delete 1
    * Add 2
    * Add 1
    */
@@ -101,14 +101,14 @@ test("Check unsubscribe", () => {
   });
 
   /**
-   * Remove 2
+   * Delete 2
    */
   unsubscribe();
 
   expect([...queue]).toEqual([1]);
 
   /**
-   * Remove 1
+   * Delete 1
    * Add 3
    * Add 1
    */
