@@ -17,12 +17,10 @@ export const createSubscriptionStack = (): SubscriptionStack => {
   let stack = new Map<Subscribe, Unsubscribe>();
 
   return (newSubscribe: Subscribe): Unsubscribe => {
-    stack.forEach((unsubscribe) => {
-      unsubscribe();
-    });
+    stack = new Map([[newSubscribe, () => undefined], ...stack]);
 
-    stack = new Map([[newSubscribe, () => {}], ...stack]);
-    stack.forEach((_, subscribe) => {
+    stack.forEach((unsubscribe, subscribe) => {
+      unsubscribe();
       stack.set(subscribe, subscribe());
     });
 

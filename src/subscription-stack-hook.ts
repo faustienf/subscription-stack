@@ -1,14 +1,14 @@
-import { useEffect, useCallback, useLayoutEffect, useRef } from "react";
-import { Subscribe, createSubscriptionStack } from "./subscription-stack";
+import { useEffect, useCallback, useLayoutEffect, useRef } from 'react';
+import { Subscribe, createSubscriptionStack } from './subscription-stack';
 
-type AnyFunction = (...args: any[]) => any;
+type AnyFunction = (...args: unknown[]) => unknown;
 
 /**
  * @see https://github.com/reactjs/rfcs/pull/220
  */
 export const useEvent = <T extends AnyFunction>(callback?: T) => {
   const ref = useRef<AnyFunction | undefined>(() => {
-    throw new Error("Cannot call an event handler while rendering.");
+    throw new Error('Cannot call an event handler while rendering.');
   });
 
   useLayoutEffect(() => {

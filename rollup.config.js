@@ -1,13 +1,14 @@
-import path from "path";
-import glob from "glob";
-import typescript from "rollup-plugin-typescript2";
-import { terser } from "rollup-plugin-terser";
+import path from 'path';
+import glob from 'glob';
+import typescript from 'rollup-plugin-typescript2';
+import { terser } from 'rollup-plugin-terser';
 
 const getRollupPluginsConfig = (compilerOptions) => {
   return [
     typescript({
+      tsconfig: 'tsconfig.build.json',
       tsconfigOverride: { compilerOptions },
-      include: ["./src/**/*"]
+      include: ['./src/**/*']
     }),
     terser({
       ecma: 5,
@@ -20,43 +21,43 @@ const getRollupPluginsConfig = (compilerOptions) => {
 };
 
 const files = glob
-  .sync("./src/*.ts")
-  .filter((file) => !file.includes("src/index.ts"));
+  .sync('./src/*.ts')
+  .filter((file) => !file.includes('src/index.ts'));
 
 export default [
   {
-    external: ["react"],
-    input: "src/index.ts",
+    external: ['react'],
+    input: 'src/index.ts',
     output: {
-      file: "dist/index.mjs",
-      format: "es"
+      file: 'dist/index.mjs',
+      format: 'es'
     },
     plugins: getRollupPluginsConfig({ declaration: true })
   },
   {
-    external: ["react"],
-    input: "src/index.ts",
+    external: ['react'],
+    input: 'src/index.ts',
     output: {
-      file: "dist/index.js",
-      format: "cjs"
+      file: 'dist/index.js',
+      format: 'cjs'
     },
     plugins: getRollupPluginsConfig({ declaration: false })
   },
   ...files.map((input) => ({
-    external: ["react"],
+    external: ['react'],
     input,
     output: {
       file: `dist/${path.parse(input).name}.mjs`,
-      format: "es"
+      format: 'es'
     },
     plugins: getRollupPluginsConfig({ declaration: false })
   })),
   ...files.map((input) => ({
-    external: ["react"],
+    external: ['react'],
     input,
     output: {
       file: `dist/${path.parse(input).name}.js`,
-      format: "cjs"
+      format: 'cjs'
     },
     plugins: getRollupPluginsConfig({ declaration: false })
   }))

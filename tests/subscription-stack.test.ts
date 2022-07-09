@@ -1,7 +1,7 @@
-import { expect, test } from "vitest";
-import { createSubscriptionStack } from "../src/subscription-stack";
+import { expect, test } from 'vitest';
+import { createSubscriptionStack } from '../src/subscription-stack';
 
-test("Check add", () => {
+test('Check add', () => {
   const queue = new Set<number>();
   const stack = createSubscriptionStack();
 
@@ -42,7 +42,7 @@ test("Check add", () => {
   expect([...queue]).toEqual([3, 2, 1]);
 });
 
-test("Check scope", () => {
+test('Check scope', () => {
   const firstQueue = new Set<number>();
   const firstStack = createSubscriptionStack();
 
@@ -76,7 +76,7 @@ test("Check scope", () => {
   expect([...firstQueue]).not.toEqual([...secondQueue]);
 });
 
-test("Check unsubscribe", () => {
+test('Check unsubscribe', () => {
   const queue = new Set<number>();
   const stack = createSubscriptionStack();
 
