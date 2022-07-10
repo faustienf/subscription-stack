@@ -19,13 +19,13 @@ npm i subscription-stack
 ```js
 // 1️. Create scoped stack
 const stack = createSubscriptionStack();
-// 2️. Pass callback
+// 2️. Pass subscribe function
 stack(() => {
-  // 3️. Return cleanup function
+  // 3️. Return unsubscribe function
   return () => {};
 });
 ```
-#### Example
+### Example
 ```js
 const stack = createSubscriptionStack();
 
@@ -46,7 +46,7 @@ stack(() => {
 // 1️⃣
 ```
 
-## ⚛️ React Hook
+### ⚛️ React Hook
 
 ```js
 const useStack = createSubscriptionStackHook();
