@@ -23,7 +23,12 @@ export const useEvent = <T extends AnyFunction>(callback?: T) => {
 
 /**
  * @example
- * const useSubscriptionStack = createSubscriptionStackHook();
+ * const useStack = createSubscriptionStackHook();
+ * useStack(() => {
+ *  const handler = () => doSomething();
+ *  window.addEventListener('click', handler);
+ *  return () => window.removeEventListener('click', handler);
+ * });
  */
 export const createSubscriptionStackHook = () => {
   const stack = createSubscriptionStack();

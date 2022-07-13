@@ -14,13 +14,14 @@ export type SubscriptionStack = (subscribe: Subscribe) => Unsubscribe;
  * });
  */
 export const createSubscriptionStack = (): SubscriptionStack => {
-  let stack = new Map<Subscribe, Unsubscribe>();
-
+  const stack = new Map<Subscribe, Unsubscribe>();
   return (newSubscribe: Subscribe): Unsubscribe => {
-    stack = new Map([[newSubscribe, () => undefined], ...stack]);
-
-    stack.forEach((unsubscribe, subscribe) => {
-      unsubscribe();
+    const subscriptions = new Set<Subscribe>([newSubscribe, ...stack.keys()]);
+    // cleanup
+    stack.forEach((unsubscribe) => unsubscribe());
+    stack.clear();
+    // reorder stack and resubscribe
+    subscriptions.forEach((subscribe) => {
       stack.set(subscribe, subscribe());
     });
 
