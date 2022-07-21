@@ -1,6 +1,6 @@
 {
   "name": "subscription-stack",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Register a subscription in LIFO stack.",
   "author": "@faustienf",
   "source": "src/index.ts",
