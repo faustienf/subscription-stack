@@ -7,11 +7,6 @@
   "main": "index.js",
   "module": "index.mjs",
   "types": "index.d.ts",
-  "files": [
-    "dist",
-    "LICENSE",
-    "README"
-  ],
   "homepage": "https://github.com/faustienf/subscription-stack",
   "repository": {
     "type": "git",
