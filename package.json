@@ -25,12 +25,13 @@
   ],
   "scripts": {
     "start": "vite example",
-    "build": "rm -rf ./dist/* && rollup --config && cp *.json dist && cp *.md dist && npm run check",
+    "copy": "cp *.json dist && cp *.md dist && cp .npmrc dist",
+    "build": "rm -rf ./dist/* && rollup --config && npm run copy && npm run check",
     "lint": "eslint --ext .js,.ts,.tsx ./src/**/* ./example/**/* ./tests/**/*",
     "test": "vitest run --dom",
     "tsc": "tsc --noEmit true",
     "check": "cd dist && npm link && cd .. && npm link subscription-stack && npm run tsc && npm run lint && npm run test",
-    "release": "npm run build && npm publish dist"
+    "release": "npm run build && cd dist && npm publish"
   },
   "peerDependencies": {
     "react": ">=16.9.0",
