@@ -17,6 +17,8 @@ npm i subscription-stack
 ## Usage
 
 ```js
+// 0. Import factory
+import { createSubscriptionStack } from 'subscription-stack';
 // 1️. Create scoped stack
 const stack = createSubscriptionStack();
 // 2️. Pass subscribe function
@@ -25,20 +27,24 @@ stack(() => {
   return () => {};
 });
 ```
+
 ### Example
+
 ```js
+import { createSubscriptionStack } from 'subscription-stack';
+
 const stack = createSubscriptionStack();
 
 stack(() => {
-  const handle = () => console.log("1️⃣");
-  window.addEventListener("click", handle);
-  return () => window.removeEventListener("click", handle);
+  const handle = () => console.log('1️⃣');
+  window.addEventListener('click', handle);
+  return () => window.removeEventListener('click', handle);
 });
 
 stack(() => {
-  const handle = () => console.log("2️⃣");
-  window.addEventListener("click", handle);
-  return () => window.removeEventListener("click", handle);
+  const handle = () => console.log('2️⃣');
+  window.addEventListener('click', handle);
+  return () => window.removeEventListener('click', handle);
 });
 
 // Console:
@@ -49,18 +55,20 @@ stack(() => {
 ### ⚛️ React Hook
 
 ```js
+import { createSubscriptionStackHook } from 'subscription-stack/react';
+
 const useStack = createSubscriptionStackHook();
 
 useStack(() => {
-  const handle = () => console.log("1️⃣");
-  window.addEventListener("click", handle);
-  return () => window.removeEventListener("click", handle);
+  const handle = () => console.log('1️⃣');
+  window.addEventListener('click', handle);
+  return () => window.removeEventListener('click', handle);
 });
 
 useStack(() => {
-  const handle = () => console.log("2️⃣");
-  window.addEventListener("click", handle);
-  return () => window.removeEventListener("click", handle);
+  const handle = () => console.log('2️⃣');
+  window.addEventListener('click', handle);
+  return () => window.removeEventListener('click', handle);
 });
 
 // Console:

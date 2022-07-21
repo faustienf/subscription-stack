@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import logo from './logo.svg';
 import './index.css';
 
-import { createSubscriptionStackHook } from '../src/subscription-stack-hook';
+import { createSubscriptionStackHook } from '../src/react/subscription-stack-hook';
 
 const useStack = createSubscriptionStackHook();
 

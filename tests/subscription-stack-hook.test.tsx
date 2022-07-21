@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { renderHook, render } from '@testing-library/react';
 import { FC } from 'react';
 import { expect, test } from 'vitest';
-import { createSubscriptionStackHook } from '../src/subscription-stack-hook';
+import { createSubscriptionStackHook } from '../src/react/subscription-stack-hook';
 
 test('Check hook', () => {
   const queue = new Set<number>();
