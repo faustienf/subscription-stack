@@ -4,9 +4,9 @@
   "description": "Register a subscription in LIFO stack.",
   "author": "@faustienf",
   "source": "src/index.ts",
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "module": "index.mjs",
+  "types": "index.d.ts",
   "files": [
     "dist",
     "LICENSE",
@@ -25,11 +25,12 @@
   ],
   "scripts": {
     "start": "vite example",
-    "build": "npm run check && rm -rf ./dist/* && rollup --config",
+    "build": "rm -rf ./dist/* && rollup --config && cp *.json dist && cp *.md dist && npm run check",
     "lint": "eslint --ext .js,.ts,.tsx ./src/**/* ./example/**/* ./tests/**/*",
     "test": "vitest run --dom",
     "tsc": "tsc --noEmit true",
-    "check": "npm run tsc && npm run lint && npm run test"
+    "check": "cd dist && npm link && cd .. && npm link subscription-stack && npm run tsc && npm run lint && npm run test",
+    "release": "npm run build && npm publish dist"
   },
   "peerDependencies": {
     "react": ">=16.9.0",

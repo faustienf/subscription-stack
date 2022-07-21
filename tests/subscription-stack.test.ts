@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { createSubscriptionStack } from '../src/subscription-stack';
+import { createSubscriptionStack } from 'subscription-stack';
 
 test('Check add', () => {
   const queue = new Set<number>();

@@ -20,9 +20,9 @@ const getRollupPluginsConfig = (compilerOptions) => {
   ];
 };
 
-const files = glob
-  .sync('./src/*.ts')
-  .filter((file) => !file.includes('src/index.ts'));
+const baseFiles = glob.sync('./src/*.ts');
+const reactFiles = glob.sync('./src/react/*.ts');
+// .filter((file) => !file.includes('src/index.ts'));
 
 export default [
   {
@@ -43,7 +43,7 @@ export default [
     },
     plugins: getRollupPluginsConfig({ declaration: false })
   },
-  ...files.map((input) => ({
+  ...baseFiles.map((input) => ({
     external: ['react'],
     input,
     output: {
@@ -52,11 +52,29 @@ export default [
     },
     plugins: getRollupPluginsConfig({ declaration: false })
   })),
-  ...files.map((input) => ({
+  ...baseFiles.map((input) => ({
     external: ['react'],
     input,
     output: {
       file: `dist/${path.parse(input).name}.js`,
+      format: 'cjs'
+    },
+    plugins: getRollupPluginsConfig({ declaration: false })
+  })),
+  ...reactFiles.map((input) => ({
+    external: ['react'],
+    input,
+    output: {
+      file: `dist/react/${path.parse(input).name}.mjs`,
+      format: 'es'
+    },
+    plugins: getRollupPluginsConfig({ declaration: false })
+  })),
+  ...reactFiles.map((input) => ({
+    external: ['react'],
+    input,
+    output: {
+      file: `dist/react/${path.parse(input).name}.js`,
       format: 'cjs'
     },
     plugins: getRollupPluginsConfig({ declaration: false })

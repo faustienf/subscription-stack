@@ -1,8 +1,7 @@
-import React, { PropsWithChildren, useEffect, useState } from 'react';
+import React, { FC, PropsWithChildren, useEffect, useState } from 'react';
 import { renderHook, render } from '@testing-library/react';
-import { FC } from 'react';
 import { expect, test } from 'vitest';
-import { createSubscriptionStackHook } from '../src/react/subscription-stack-hook';
+import { createSubscriptionStackHook } from 'subscription-stack/react';
 
 test('Check hook', () => {
   const queue = new Set<number>();
